@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_product_template_form_inherit_descr" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.descr</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <page name="sales" position="inside">
+                <group>
+                    <group string="Quotation Description" name="q_description">
+                        <field colspan="2" name="custom_desc" nolabel="1"/>
+                    </group>
+                </group>
+            </page>
+        </field>
+    </record>
+
+    <record id="view_order_form_custom" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.delivery.date</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Add Delivery Date below Payment Terms in the header -->
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <label for="commitment_date" string="Delivery Date"/>
+                <div name="commitment_date_div" class="o_row">
+                    <field name="commitment_date" readonly="state == 'cancel' or locked"/>
+                    <span name="expected_date_span" class="text-muted">Expected:
+                        <field name="expected_date" class="oe_inline" widget="date"/>
+                    </span>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>
